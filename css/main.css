@@ -3,7 +3,8 @@
 
 .block-menu {}
 .block-button {
-  border-color: black;
+  width: 80%;
+  border: 2px solid black;
 }
 #block-button-video-games {
   background-image: Url("")
