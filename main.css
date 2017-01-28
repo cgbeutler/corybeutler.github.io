@@ -1,0 +1,19 @@
+#main-title {}
+
+
+.block-menu {}
+.block-button {
+  border-color: black;
+}
+#block-button-video-games {
+  background-image: Url("")
+}
+#block-button-music {
+  background-image: Url("")
+}
+#block-button-github {
+  background-image: Url("")
+}
+#block-button-mech-keyboards {
+  background-image: Url("")
+}
