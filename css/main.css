@@ -1,16 +1,90 @@
-#main-title {}
+
+body {
+    background-color: black;
+    background-image: url('../img/nebula_bg.jpg');
+    background-position: center;
+    background-attachment: fixed;
+}
 
 
-.block-menu {}
-.block-button {
-  width: 80%;
-  border: 2px solid black;
+#main-title {
+    background-color: #000000cc;
+    margin: 20pt auto 5pt auto;
+    padding: 10pt;
+    width: 70%;
+    border-radius: 5pt;
+    border: 2pt solid #111111;
+    font-size: 30pt;
+    color: whitesmoke;
+    text-align: center;
 }
-#block-button-video-games {
+
+
+#nav-menu {
+    padding: 0pt;
+    align-content: center;
+    text-align: center;
 }
-#block-button-music {
+#nav-menu > a {
+    background-color: #000000cc;
+    display: inline-block;
+    color: aqua;
+    border: 3pt solid rgba(0,0,0,0);
+    border-radius: 2pt;
+    text-decoration: none;
 }
-#block-button-github {
+#nav-menu > a:hover {
+    color: darkturquoise;
 }
-#block-button-mech-keyboards {
+#nav-menu > a > div {
+    border: 2pt solid aqua;
+    border-radius: 1pt;
+    padding: 4pt 10pt;
+}
+
+
+#content {
+    background-color: #000000cc;
+    color: whitesmoke;
+    margin: 20pt auto;
+    width: 80%;
+    border-radius: 8pt;
+    border: 10pt solid rgba(0,0,0,0);
+}
+#content > div {
+    background-color: #000000;
+    padding: 10pt;
+}
+
+
+#breadcrumb {
+    padding: 5pt;
+    color: whitesmoke;
+}
+#breadcrumb a {
+    color: aqua;
+}
+#breadcrumb a:visited {
+    color: plum;
+}
+
+
+#external-links {
+    background-color: #000000cc;
+    color: whitesmoke;
+    margin: 20pt auto;
+    padding: 10pt;
+    width: 70%;
+    border-radius: 5pt;
+    border: 2pt solid #111111;
+    text-align: center;
+    align-content: center;
+}
+#external-links a {
+    display: inline-block;
+    margin: 5pt;
+    color: aqua;
+}
+#external-links a:visited {
+    color: plum;
 }
