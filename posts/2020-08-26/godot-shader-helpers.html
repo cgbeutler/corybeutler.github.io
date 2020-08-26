@@ -1,0 +1,102 @@
+<!-- boilerplate -->
+
+<head>
+    <title>Cory Beutler</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/prism.css" />
+</head>
+<body>
+    <div id="main-title">Cory Beutler: The Blog</div>
+            
+    <div id="nav-menu">
+      <a href="/index.html">
+        <div class="block-button">
+          Home
+        </div>
+      </a>
+      <a href="/blog.html">
+        <div class="block-button">
+          Blog
+        </div>
+      </a>
+    </div>
+
+    <div id="content">
+        <div>
+
+<!-- --- -->
+
+
+<!-- breadcrumbs -->
+
+            <div id="breadcrumb"> <a href="/index.html">Home</a> > <a href="/blog.html">Blog</a> > 2020-08-26 </div>
+            
+<!-- --- -->
+            
+            
+            <h1>Helpful shader functions for Godot</h1>
+            
+            <p> Color is sometimes strange to work with. For example, you may have noticed that pure blue (0.0,0.0,1.0) is darker than pure red(0.0,0.0,1.0). This "perceived luminance difference" makes it not totally straightforward when working with color. There is a quick and dirty way to get a luminance value closer to what us humans would perceive. Unfortunately, it is different for SD and HD displays, but you can usually get away with just using SD. (Color spaces get complex fast, so if you want to learn more... good luck: <a href="https://en.wikipedia.org/wiki/Color_space">https://en.wikipedia.org/wiki/Color_space</a>) </p>
+            
+            <pre><code class="language-clike">
+const vec3 Y_SD = vec3(0.299, 0.587, 0.114);
+const vec3 Y_HD = vec3(0.2126, 0.7152, 0.0722);
+float rgb_to_y( vec3 c ) { return dot(c, Y_SD); }
+float rgb_to_y_hd( vec3 c ) { return dot(c, Y_SD); }
+vec3 to_black_and_white( vec3 c ) { return vec3(rgb_to_y(c)); }
+vec3 to_black_and_white_hd( vec3 c ) { return vec3(rgb_to_y_hd(c)); }
+            </code></pre>
+            
+            <p> The next useful snippet I'd like to share is for quick wrapping of floats, which is currently lacking from godot's shader stuff. Each of these have different small tweaks for choosing how to wrap. </p>
+
+            <pre><code class="language-clike">
+// Wraps [0,1)
+float wrap_0_1(float x) { return x - floor(x); }
+// Wraps [-1,1)
+float wrap_1_1(float x) { return 2.0 * ( (x/2.0) - floor(0.5 + (x/2.0)) ); }
+// Wraps (0,1]
+float wrap_0_1(float x) { return 1 + x - ceil(x); }
+// Wraps (-1,1]
+float wrap_1_1(float x) { return 2.0 + 2.0 * ( (x/2.0) - ceil(0.5 + (x/2.0)) ); }
+            </code></pre>
+
+            <p> Another function I have used more than I thought I would is toroidal distance. This function takes in two points with values between 0.0 and 1.0. It then finds how close those points are to each other if the 1x1 world were to wrap back around on itself (like Pacman.) </p>
+            
+            <pre><code class="language-clike">
+float toroidal_distance( vec2 a, vec2 b ) {
+	float dx = abs(a.x - b.x);
+	float dy = abs(a.y - b.y);
+	if (dx > 0.5) dx -= 1.0;
+	if (dy > 0.5) dy -= 1.0;
+	return sqrt(dx*dx + dy*dy);
+}
+            </code></pre>
+            
+            <p>
+                I will likely return to this post and edit/add functions as I use them.
+            </p>
+            
+        </div>
+
+        
+<!-- boilerplate -->
+
+    </div>
+    
+    <div id="external-links">
+        <span style="margin: 0pt 10pt"> You can also find me on:</span>
+        <a href="https://aristonaut.itch.io/">
+          <img src="/img/itchio_logo.svg" style="height: 14pt">
+        </a>
+        <a href="https://m.soundcloud.com/aristonaut">
+          <img src="/img/soundcloud_logo.png" style="height: 14pt">
+        </a>
+        <a href="https://github.com/cgbeutler">
+          <img src="/img/github_logo.png" style="height: 14pt">
+        </a>
+    </div>
+    
+    <script src="/prism.js" type="text/javascript"></script>
+</body>
+
+<!-- --- -->
