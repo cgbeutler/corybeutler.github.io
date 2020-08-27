@@ -47,17 +47,23 @@ vec3 to_black_and_white( vec3 c ) { return vec3(rgb_to_y(c)); }
 vec3 to_black_and_white_hd( vec3 c ) { return vec3(rgb_to_y_hd(c)); }</code></pre>
             
             <br>
-            <p> The next useful snippet I'd like to share is for quick wrapping of floats, which is currently lacking from godot's shader stuff. Each of these have different small tweaks for choosing how to wrap. </p>
+            <p> Currently missing from the stock functions is a 'wrap' function. Each of these have different small tweaks for choosing how to wrap. The 'wrap_floor' and 'wrap_ceil' variants don't require a or b to be in any particular order, it's just a range, which may be needed. </p>
 
             <pre><code class="language-clike">
-// Wraps [0,1)
-float wrap_0_1(float x) { return x - floor(x); }
-// Wraps [-1,1)
-float wrap_1_1(float x) { return 2.0 * ( (x/2.0) - floor(0.5 + (x/2.0)) ); }
+// Wraps [mn, mx)
+float wrapf(float x, float mn, float mx) { return mod(x+mn, mx)-mn; }
+vec2 wrapvec2(vec2 x, float mn, float mx) { return mod(x+mn, mx)-mn; }
+vec3 wrapvec3(vec3 x, float mn, float mx) { return mod(x+mn, mx)-mn; }
+
+// Wraps [a, b)
+float wrap_floor(float x, float a, float b) { return (a-b)*floor((a-x)/(a-b)) + x; }
+
+// Wraps (a, b]
+float wrap_ceil(float x, float a, float b) { return (a-b)*ceil((a-x)/(a-b)) + x + b - a; }
 // Wraps (0,1]
-float wrap_0_1(float x) { return 1 + x - ceil(x); }
+float wrap_ceil_0_1(float x) { return 1.0 + x - ceil(x); }
 // Wraps (-1,1]
-float wrap_1_1(float x) { return 2.0 + 2.0 * ( (x/2.0) - ceil(0.5 + (x/2.0)) ); }</code></pre>
+float wrap_1_1(float x) { return x + 2.0 - 2.0 * ceil( 0.5 + 0.5*x ); }</code></pre>
 
             <br>
             <p> Another function I have used more than I thought I would is toroidal distance. This function takes in two points with values between 0.0 and 1.0. It then finds how close those points are to each other if the 1x1 world were to wrap back around on itself (like Pacman.) </p>
